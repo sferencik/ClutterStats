@@ -33,6 +33,7 @@ public class BuildStatusListener {
 
                     final String directoryPath = feature.getParameters().get(names.getDirectoryPathParameterName());
                     if (directoryPath == null) {
+                        // should not happen, thanks to ClutterStatsBuildFeature.getParametersProcessor()
                         logger.error("Directory path unset; cannot measure");
                         continue;
                     }

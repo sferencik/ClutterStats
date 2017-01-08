@@ -1,10 +1,15 @@
 package sferencik.teamcity.clutterstats;
 
 import jetbrains.buildServer.serverSide.BuildFeature;
+import jetbrains.buildServer.serverSide.InvalidProperty;
+import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 
 public class ClutterStatsBuildFeature extends BuildFeature {
@@ -43,15 +48,38 @@ public class ClutterStatsBuildFeature extends BuildFeature {
         final Names names = new Names();
         final String parameterName = params.get(names.getParameterNameParameterName());
         final String directoryPath = params.get(names.getDirectoryPathParameterName());
-        if (directoryPath == null)
+        if (directoryPath == null) {
+            // should not happen, thanks to getParametersProcessor()
             return "ERROR: directory path unspecified";
-        else if (parameterName == null)
+        }
+        else if (parameterName == null) {
             return "Measure and log the final size of " + directoryPath;
-        else
+        }
+        else {
             return "Store the final size of " +
                     directoryPath +
                     " in the '" +
                     parameterName +
                     "' parameter and build statistic";
+        }
+    }
+
+    @Nullable
+    @Override
+    public PropertiesProcessor getParametersProcessor() {
+        return new PropertiesProcessor() {
+            @Override
+            public Collection<InvalidProperty> process(Map<String, String> params) {
+                final Names names = new Names();
+                final String directoryPathParameterName = names.getDirectoryPathParameterName();
+                final String directoryPath = params.get(directoryPathParameterName);
+                if (directoryPath == null || directoryPath.isEmpty()) {
+                    return Arrays.asList(new InvalidProperty(directoryPathParameterName, "Please specify the directory path"));
+                }
+                else {
+                    return null;
+                }
+            }
+        };
     }
 }
