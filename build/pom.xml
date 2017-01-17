@@ -11,8 +11,8 @@
   <properties>
       <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
       <teamcity.clutter-stats.plugin.version>snapshot-${maven.build.timestamp}</teamcity.clutter-stats.plugin.version>
-      <teamcity.sin-city.plugin.vendorName>Sam Ferencik</teamcity.sin-city.plugin.vendorName>
-      <teamcity.sin-city.plugin.vendorUrl>https://cz.linkedin.com/in/sferencik</teamcity.sin-city.plugin.vendorUrl>
+      <teamcity.clutter-stats.plugin.vendorName>Sam Ferencik</teamcity.clutter-stats.plugin.vendorName>
+      <teamcity.clutter-stats.plugin.vendorUrl>https://cz.linkedin.com/in/sferencik</teamcity.clutter-stats.plugin.vendorUrl>
   </properties>
   <dependencies>
       <dependency>
