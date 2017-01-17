@@ -3,6 +3,7 @@ package sferencik.teamcity.clutterstats;
 import jetbrains.buildServer.serverSide.BuildFeature;
 import jetbrains.buildServer.serverSide.InvalidProperty;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,11 +48,11 @@ public class ClutterStatsBuildFeature extends BuildFeature {
         final Names names = new Names();
         final String parameterName = params.get(names.getParameterNameParameterName());
         final String directoryPath = params.get(names.getDirectoryPathParameterName());
-        if (directoryPath == null) {
+        if (StringUtil.isEmpty(directoryPath)) {
             // should not happen, thanks to getParametersProcessor()
             return "ERROR: directory path unspecified";
         }
-        else if (parameterName == null) {
+        else if (StringUtil.isEmpty(parameterName)) {
             return "Measure and log the final size of " + directoryPath;
         }
         else {
@@ -72,7 +73,7 @@ public class ClutterStatsBuildFeature extends BuildFeature {
                 final Names names = new Names();
                 final String directoryPathParameterName = names.getDirectoryPathParameterName();
                 final String directoryPath = params.get(directoryPathParameterName);
-                if (directoryPath == null || directoryPath.isEmpty()) {
+                if (StringUtil.isEmpty(directoryPath)) {
                     return Arrays.asList(new InvalidProperty(directoryPathParameterName, "Please specify the directory path"));
                 }
                 else {

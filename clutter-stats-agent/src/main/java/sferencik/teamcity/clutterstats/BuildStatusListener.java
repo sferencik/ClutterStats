@@ -2,6 +2,7 @@ package sferencik.teamcity.clutterstats;
 
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.util.EventDispatcher;
+import jetbrains.buildServer.util.StringUtil;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +29,7 @@ public class BuildStatusListener {
                     final Names names = new Names();
 
                     final String directoryPath = feature.getParameters().get(names.getDirectoryPathParameterName());
-                    if (directoryPath == null) {
+                    if (StringUtil.isEmpty(directoryPath)) {
                         // should not happen, thanks to ClutterStatsBuildFeature.getParametersProcessor()
                         logger.error("Directory path unset; cannot measure");
                         continue;
@@ -42,7 +43,7 @@ public class BuildStatusListener {
 
                     final String parameterName = feature.getParameters().get(names.getParameterNameParameterName());
                     long dirSize = FileUtils.sizeOfDirectory(directory);
-                    if (parameterName == null) {
+                    if (StringUtil.isEmpty(parameterName)) {
                         logger.message(directory + " has " + dirSize + " bytes");
                     }
                     else {
