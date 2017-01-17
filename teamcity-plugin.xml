@@ -4,13 +4,13 @@
     <name>clutter-stats</name>
     <display-name>clutter-stats</display-name>
     <version>@Version@</version>
-    <description>Plugin description</description>
+    <description>Measure the disk space consumed by your builds</description>
     <download-url>Plugin download URL</download-url>
-    <email>Plugin author e-mail</email>
+    <email>sferencik+clutterstats@gmail.com</email>
     <vendor>
       <name>@VendorName@</name>
       <url>@VendorURL@</url>
-      <logo>Plugin vendor logo URL</logo>
+      <logo>https://goo.gl/9GFxbY</logo>
     </vendor>
   </info>
   <deployment use-separate-classloader="true" />
