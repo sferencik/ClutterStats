@@ -6,11 +6,7 @@ import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collection;
-
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 public class BuildStatusListener {
     public BuildStatusListener(EventDispatcher<AgentLifeCycleListener> listener)
