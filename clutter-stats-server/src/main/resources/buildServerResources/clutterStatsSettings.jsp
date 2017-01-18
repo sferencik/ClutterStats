@@ -9,7 +9,7 @@
         <td><props:textProperty name="${name.directoryPathParameterName}" /></td>
     </tr>
     <tr>
-        <td>Name of the parameter to set, and the metric to publish</td>
+        <td>Name of the parameter to set</td>
         <td><props:textProperty name="${name.parameterNameParameterName}" /></td>
     </tr>
 </l:settingsGroup>

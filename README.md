@@ -6,14 +6,14 @@ As your build finishes, ClutterStats measures the size of the directory (or dire
 
 1. logs the size into the build log
 2. stores the size into a build parameter
-3. publishes the size as a build statistic
 
 You can measure multiple directories by adding the build feature multiple times.
 
 ## Technical notes
 If the directory does not exist, no parameter is set, and no statistic is published. (As opposed to setting these to 0.)
 
-If you omit the parameter name in the build feature dialog, the size of the directory is only logged (point 1 above).
+If you omit the parameter name in the build feature dialog, the size of the directory is only logged and no parameter is
+set.
 
 ## Development notes
 To build, test, and package the plugin, run `mvn package` from the root directory.

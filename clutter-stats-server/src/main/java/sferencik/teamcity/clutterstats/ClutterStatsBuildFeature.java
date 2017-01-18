@@ -60,7 +60,7 @@ public class ClutterStatsBuildFeature extends BuildFeature {
                     directoryPath +
                     " in the '" +
                     parameterName +
-                    "' parameter and build statistic";
+                    "' parameter";
         }
     }
 

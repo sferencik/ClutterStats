@@ -49,7 +49,6 @@ public class BuildStatusListener {
                     else {
                         logger.message(directory + " has " + dirSize + " bytes; setting " + parameterName);
                         logger.message("##teamcity[setParameter name='" + parameterName + "' value='" + dirSize + "']");
-                        logger.message("##teamcity[buildStatisticValue key='" + parameterName + "' value='" + dirSize + "']");
                     }
                 }
                 logger.activityFinished("ClutterStats", "CUSTOM_CLUTTER_STATS");
