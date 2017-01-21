@@ -18,7 +18,7 @@ set.
 ## Development notes
 To build, test, and package the plugin, run `mvn package` from the root directory.
 
-To deploy the plugin, copy `target/clutter-stats.zip` into the TeamCity plugin directory and restart the server.
+To deploy the plugin, copy `clutter-stats.zip` into the TeamCity plugin directory and restart the server. If you've built locally, get the zip file from `target/clutter-stats.zip`; otherwise grab the [latest released version](https://github.com/sferencik/ClutterStats/releases).
 
 ## Ideas for improvement
 Allow measuring the size of a directory as the build *starts*. This could be useful to compare the starting and final
