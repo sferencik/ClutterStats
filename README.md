@@ -1,4 +1,4 @@
-# ClutterStats: measure your clutter footprint
+# ClutterStats: measure your clutter footprint [![Build Status](https://travis-ci.org/sferencik/ClutterStats.svg?branch=master)](https://travis-ci.org/sferencik/ClutterStats)
 
 ClutterStats is a TeamCity plugin that helps you measure how much disk space your build consumes.
 
