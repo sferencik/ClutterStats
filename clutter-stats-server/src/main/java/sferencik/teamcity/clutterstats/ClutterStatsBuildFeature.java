@@ -8,9 +8,7 @@ import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 
 public class ClutterStatsBuildFeature extends BuildFeature {
     private final PluginDescriptor descriptor;
@@ -52,16 +50,34 @@ public class ClutterStatsBuildFeature extends BuildFeature {
             // should not happen, thanks to getParametersProcessor()
             return "ERROR: directory path unspecified";
         }
-        else if (StringUtil.isEmpty(parameterName)) {
-            return "Measure and log the final size of " + directoryPath;
+        if (!Feature.isMeasureBeforeBuild(params) && !Feature.isMeasureAfterBuild(params)) {
+            // should not happen, thanks to getParametersProcessor()
+            return "ERROR: when to measure is unspecified";
         }
-        else {
-            return "Store the final size of " +
-                    directoryPath +
-                    " in the '" +
-                    parameterName +
-                    "' parameter";
+
+        String adjective = Feature.isMeasureBeforeBuild(params)
+                ? "initial" : "final";
+
+        if (StringUtil.isEmpty(parameterName)) {
+            return "Measure and log the " + adjective + " size of " + directoryPath;
         }
+
+        return "Store the " +
+                adjective +
+                " size of " +
+                directoryPath +
+                " in the '" +
+                parameterName +
+                "' parameter";
+    }
+
+    @Nullable
+    @Override
+    public Map<String, String> getDefaultParameters() {
+        Map<String, String> defaultParameters = new HashMap<String, String>();
+        final Names names = new Names();
+        defaultParameters.put(names.getRbWhenToMeasure(), names.getAfterBuild());
+        return defaultParameters;
     }
 
     @Nullable
@@ -70,16 +86,29 @@ public class ClutterStatsBuildFeature extends BuildFeature {
         return new PropertiesProcessor() {
             @Override
             public Collection<InvalidProperty> process(Map<String, String> params) {
+                Collection<InvalidProperty> errors = new ArrayList<InvalidProperty>();
                 final Names names = new Names();
+
                 final String directoryPathParameterName = names.getDirectoryPathParameterName();
                 final String directoryPath = params.get(directoryPathParameterName);
                 if (StringUtil.isEmpty(directoryPath)) {
-                    return Arrays.asList(new InvalidProperty(directoryPathParameterName, "Please specify the directory path"));
+                    errors.add(new InvalidProperty(directoryPathParameterName, "Please specify the directory path"));
+                }
+
+                final String whenToMeasureParameterName = names.getRbWhenToMeasure();
+                final String whenToMeasure = params.get(whenToMeasureParameterName);
+                if (!Feature.isMeasureBeforeBuild(params) && !Feature.isMeasureAfterBuild(params)) {
+                    errors.add(new InvalidProperty(whenToMeasureParameterName, "Please specify when to measure the directory size"));
+                }
+
+                if (errors.isEmpty()) {
+                    return null;
                 }
                 else {
-                    return null;
+                    return errors;
                 }
             }
         };
     }
+
 }
