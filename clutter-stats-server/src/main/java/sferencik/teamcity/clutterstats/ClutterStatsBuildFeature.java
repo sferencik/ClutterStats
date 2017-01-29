@@ -50,10 +50,6 @@ public class ClutterStatsBuildFeature extends BuildFeature {
             // should not happen, thanks to getParametersProcessor()
             return "ERROR: directory path unspecified";
         }
-        if (!Feature.isMeasureBeforeBuild(params) && !Feature.isMeasureAfterBuild(params)) {
-            // should not happen, thanks to getParametersProcessor()
-            return "ERROR: when to measure is unspecified";
-        }
 
         String adjective = Feature.isMeasureBeforeBuild(params)
                 ? "initial" : "final";
@@ -95,10 +91,8 @@ public class ClutterStatsBuildFeature extends BuildFeature {
                     errors.add(new InvalidProperty(directoryPathParameterName, "Please specify the directory path"));
                 }
 
-                final String whenToMeasureParameterName = names.getRbWhenToMeasure();
-                final String whenToMeasure = params.get(whenToMeasureParameterName);
-                if (!Feature.isMeasureBeforeBuild(params) && !Feature.isMeasureAfterBuild(params)) {
-                    errors.add(new InvalidProperty(whenToMeasureParameterName, "Please specify when to measure the directory size"));
+                if (Feature.isWhenToMeasureUnset(params)) {
+                    errors.add(new InvalidProperty(names.getRbWhenToMeasure(), "Please specify when to measure the directory size"));
                 }
 
                 if (errors.isEmpty()) {
